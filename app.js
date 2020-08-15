@@ -5,7 +5,7 @@ const cookieParser = require('cookie-parser')
 const expressValidator = require('express-validator')
 require('dotenv').config()
 //Import Routes
-const userRoutes = require('./src/Routes/user')
+const userRoutes = require('./src/Routes/auth')
 
 //APP
 const app = express()
@@ -20,7 +20,6 @@ async function main() {
     mongoose.connection.on('error', err => {
     console.log(`DB connection error: ${err.message}`)
     });
-
 
     //middlewares
     app.use(express.json());
