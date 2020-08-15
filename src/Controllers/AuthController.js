@@ -16,9 +16,9 @@ exports.signup = (req, res) => {
       user.hashed_password = undefined;
       res.json({
         user,
-      });
-    });
-};
+      })
+    })
+}
 
 exports.signin = (req, res) => {
   // Find the user based on email
@@ -48,7 +48,7 @@ exports.signin = (req, res) => {
 
     return res.json({ token, user: {_id, name, email, role} })
   })
-};
+}
 
 exports.signout = (req, res) => {
   res.clearCookie('t')
@@ -59,7 +59,7 @@ exports.requireSignin = expressJwt({
   secret: process.env.JWT_SECRET,
   algorithms: ["HS256"], // added later
   userProperty: "auth",
-});
+})
 
 exports.isAuth = (req, res, next) => {
   //Check token With User ID

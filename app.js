@@ -7,6 +7,7 @@ require('dotenv').config()
 //Import Routes
 const authRoutes = require('./src/Routes/auth')
 const userRoutes = require('./src/Routes/user')
+const categoryRoutes = require('./src/Routes/category')
 
 //APP
 const app = express()
@@ -27,9 +28,11 @@ async function main() {
     app.use(morgan('dev'))
     app.use(cookieParser())
     app.use(expressValidator());
+    
     //Routes
     app.use("/api", authRoutes);
     app.use("/api", userRoutes);
+    app.use("/api", categoryRoutes);
   
     return app;
 }
