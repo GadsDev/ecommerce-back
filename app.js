@@ -5,7 +5,8 @@ const cookieParser = require('cookie-parser')
 const expressValidator = require('express-validator')
 require('dotenv').config()
 //Import Routes
-const userRoutes = require('./src/Routes/auth')
+const authRoutes = require('./src/Routes/auth')
+const userRoutes = require('./src/Routes/user')
 
 //APP
 const app = express()
@@ -27,6 +28,7 @@ async function main() {
     app.use(cookieParser())
     app.use(expressValidator());
     //Routes
+    app.use("/api", authRoutes);
     app.use("/api", userRoutes);
   
     return app;
