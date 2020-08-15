@@ -8,7 +8,7 @@ require('dotenv').config()
 const authRoutes = require('./src/Routes/auth')
 const userRoutes = require('./src/Routes/user')
 const categoryRoutes = require('./src/Routes/category')
-
+const productRoutes = require('./src/Routes/product')
 //APP
 const app = express()
 
@@ -33,6 +33,7 @@ async function main() {
     app.use("/api", authRoutes);
     app.use("/api", userRoutes);
     app.use("/api", categoryRoutes);
+    app.use("/api", productRoutes);
   
     return app;
 }
