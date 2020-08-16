@@ -59,8 +59,7 @@ exports.remove = (req, res) => {
     product.remove((err, deletedProduct) => {
         if (err) {
             return res.status(400).json({ error: errorHandler(err)})
-        }
-        deletedProduct.photo = undefined
-        res.json({ deletedProduct: deletedProduct, message: "Product deleted sucessfully"})
+        }       
+        res.json({ message: "Product deleted sucessfully" })
     })
 }
