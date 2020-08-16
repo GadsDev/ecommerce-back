@@ -3,6 +3,7 @@ const mongoose = require('mongoose')
 const morgan = require('morgan')
 const cookieParser = require('cookie-parser')
 const expressValidator = require('express-validator')
+const cors = require('cors')
 require('dotenv').config()
 //Import Routes
 const authRoutes = require('./src/Routes/auth')
@@ -28,6 +29,7 @@ async function main() {
     app.use(morgan('dev'))
     app.use(cookieParser())
     app.use(expressValidator());
+    app.use(cors());
     
     //Routes
     app.use("/api", authRoutes);
