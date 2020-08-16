@@ -14,7 +14,6 @@ exports.productById = (req, res, next, id) => {
 
 
 exports.read = (req, res) => {
-    req.product.photo = undefined
     return res.json(req.product)
 }
 exports.create = (req, res) => {
@@ -197,3 +196,11 @@ exports.listBySearch = (req, res) => {
             });
         });
 };
+
+exports.photo = (req, res, next) => {
+    if (req.product.photo.data) {
+        res.set('Content-Type', req.product.photo.contentType)
+        return res.send(req.product.photo.data)
+    }
+    next()
+}
