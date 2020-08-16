@@ -54,6 +54,40 @@ exports.create = (req, res) => {
     })
 }
 
+exports.update = (req, res) => {
+    let form = new formidable.IncomingForm()
+    //Manter extenção
+    form.keepExtensions = true
+    form.parse(req, (err, fields, files) => {
+        if (err) {
+            return res.status(400).json({ error: 'Image could not be uploaded'})
+        }
+        //check for all fields
+        const { name, description, price, category, quantity, shipping } = fields
+        if (!name || !description || !price || !category || !quantity || !shipping){           
+            return res.status(400).json({ error: 'All fields are required'})           
+        }
+            
+        let product = req.product
+        //lodash
+        product = _.extend(product, fields)
+        if (files.photo) {
+            if (files.photo.size > 1000000) {
+                return res.status(400).json({ error: 'Image shold be less than 1mb in size'})
+            }
+            product.photo.data = fs.readFileSync(files.photo.path)
+            product.photo.contentType = files.photo.type
+        }
+
+        product.save((err, result) => {
+            if (err) {
+                return res.status(400).json({ error: errorHandler(err)})
+            }
+            res.json(result)
+        })
+    })
+}
+
 exports.remove = (req, res) => {
     let product = req.product
     product.remove((err, deletedProduct) => {
