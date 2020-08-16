@@ -1,7 +1,7 @@
 const express = require('express')
 const router = express.Router()
 
-const { create, productById, read, remove, update, list, listRelated, listCategories } = require('../Controllers/ProductController')
+const { create, productById, read, remove, update, list, listRelated, listCategories, listBySearch } = require('../Controllers/ProductController')
 const { requireSignin, isAuth, isAdmin } = require('../Controllers/AuthController')
 const { userById } = require("../Controllers/UserController")
 
@@ -12,6 +12,7 @@ router.put('/product/:productId/:userId', requireSignin, isAuth, isAdmin, update
 router.get('/products', list)
 router.get('/products/related/:productId', listRelated)
 router.get('/products/categories', listCategories)
+router.post("/products/by/search", listBySearch);
 
 //Middware to userId route param
 router.param('userId', userById)
