@@ -1,12 +1,13 @@
 const express = require('express')
 const router = express.Router()
 
-const { create, productById, read } = require('../Controllers/ProductController')
+const { create, productById, read, remove } = require('../Controllers/ProductController')
 const { requireSignin, isAuth, isAdmin } = require('../Controllers/AuthController')
 const { userById } = require("../Controllers/UserController")
 
 router.get('/product/:productId', read)
 router.post('/product/create/:userId', requireSignin, isAuth, isAdmin, create)
+router.delete('/product/:productId/:userId', requireSignin, isAuth, isAdmin, remove)
 
 //Middware to userId route param
 router.param('userId', userById)
