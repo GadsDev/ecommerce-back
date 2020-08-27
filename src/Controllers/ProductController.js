@@ -39,15 +39,16 @@ exports.create = (req, res) => {
         if (files.photo) {
             if (files.photo.size > 1000000) {
                 return res.status(400).json({ error: 'Image shold be less than 1mb in size'})
-            }
+            }          
             product.photo.data = fs.readFileSync(files.photo.path)
             product.photo.contentType = files.photo.type
         }
-
+        
         product.save((err, result) => {
             if (err) {
                 return res.status(400).json({ error: errorHandler(err)})
             }
+            result.photo = {}
             res.json(result)
         })
     })
